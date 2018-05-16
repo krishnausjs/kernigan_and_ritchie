@@ -45,6 +45,28 @@ int get_line(char line[],int lim)
 }
 #endif
 
+int remove_spaces(char line[])
+{
+	int i = 0;
+	while(line[i] != '\n')
+			++i;
+	
+	--i;
+
+	while(i >= 0 && line[i] == ' ' || line[i] =='\t')
+	 	--i;
+
+	if(i >= 0)
+	{
+		++i;
+		line[i]='$';
+		++i;
+		line[i]='\n';
+		++i;
+		line[i]='\0';
+	}
+	return i;
+}
 
 int main()
 {
@@ -52,7 +74,9 @@ int main()
 	char line[LINE_LENGTH];
 	
 	if((len = get_line(line,MAX_LINE_LENGTH)) > 0)	
-	{ 
+	{
+		if(len > 0)
+			remove_spaces(line); 
 		printf("%s ",line);
 	}
 	printf("\nValue of len is %d\n",len);
